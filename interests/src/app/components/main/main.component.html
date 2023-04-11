@@ -1,0 +1,17 @@
+
+<span class="flex justify-center p-2 md:text-2xl">
+  My Interests
+</span>
+
+<div *ngIf="interests.length === 0" class="grid grid-rows-4 md:grid-rows-2 grid-flow-col gap-2">
+  <p-skeleton width="25rem" height="10rem" ></p-skeleton>
+  <p-skeleton width="15rem" height="10rem" ></p-skeleton>
+  <p-skeleton width="25rem" height="10rem" ></p-skeleton>
+  <p-skeleton width="15rem" height="10rem" ></p-skeleton>
+</div>
+
+<div *ngIf="interests.length > 0" class="grid grid-rows-4 md:grid-rows-2 grid-flow-col gap-2 ">
+  <ng-container *ngFor="let interest of interests">
+    <app-image [interest]="interest" [details]="interest.description"></app-image>
+  </ng-container>
+</div>

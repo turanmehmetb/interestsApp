@@ -1,0 +1,27 @@
+
+<div>
+  <span class="flex justify-center p-2">
+    Select One
+  </span>
+
+  <div class="md:flex" *ngIf="interests!.length > 0">
+
+    <div class="overflow-hidden rounded-3xl shadow-lg cursor-pointer hover:underline border border-slate-500" [ngClass]="selectedInterestIndex === 0 ? '!border-sky-500' : ''" (click)="onClick(0)">
+      <app-image [interest]="interests[0]" [details]="interests[0].description"></app-image>
+    </div>
+
+    <span class="flex justify-center items-center p-2 md:p-8"> VS </span>
+
+    <div class="overflow-hidden rounded-3xl shadow-lg cursor-pointer hover:underline border border-slate-500 " [ngClass]="selectedInterestIndex === 1 ? '!border-sky-500' : ''" (click)="onClick(1)">
+      <app-image [interest]="interests[1]" [details]="interests[1].description"></app-image>
+    </div>
+
+  </div>
+
+  <div class="flex justify-center p-2 md:p-8">
+    <p-button label="Select" (click)="onSelect()" [disabled]="selectedInterestIndex === null"></p-button>
+  </div>
+
+</div>
+
+<p-toast position="bottom-right"></p-toast>

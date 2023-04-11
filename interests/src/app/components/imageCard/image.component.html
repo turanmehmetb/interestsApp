@@ -1,0 +1,35 @@
+<ng-container *ngIf="card else onlyImage">
+
+  <p-card styleClass="h-full">
+
+    <ng-container *ngIf="loading">
+      <div class="w-36 h-16 md:w-60 md:h-52">
+        <p-skeleton width="15vw" height="10vh"></p-skeleton>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="!loading">
+      <ng-template pTemplate="header">
+        <span class="flex justify-center md:text-2xl font-bold">
+          {{ interest!.name }}
+        </span>
+      </ng-template>
+
+      <div class="flex justify-center">
+        <img class="block w-[150px] h-[100px] md:w-[250px] md:h-[150px] object-fill" [src]="path" />
+      </div>
+
+      <ng-template pTemplate="footer">
+        <span class="text-xs"> {{ details ?? '' }} </span>
+      </ng-template>
+    </ng-container>
+
+  </p-card>
+
+</ng-container>
+
+<ng-template #onlyImage>
+  <div class="flex justify-center">
+    <img class="block w-[80px] h-[60px] md:w-[100px] md:h-[80px] " [src]="path" />
+  </div>
+</ng-template>

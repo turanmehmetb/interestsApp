@@ -1,0 +1,66 @@
+
+<span class="flex justify-center md:text-2xl">
+  Popularities
+</span>
+<div class="flex justify-end">
+  <div class="block">
+    <p-selectButton styleClass="pb-2" [options]="dateOptions" [(ngModel)]="selectedDate" (onChange)="onDateChange()"></p-selectButton>
+    <p-selectButton [options]="dataOptions" [(ngModel)]="selectedData"></p-selectButton>
+  </div>
+</div>
+
+  <ng-container *ngIf="selectedData === 'mostLeast'; else all;" >
+
+    <ng-container *ngIf="most?.path && least?.path">
+      <div class="grid grid-rows-2 md:grid-rows-1 grid-flow-col md:gap-32 md:mb-10 p-4 md:p-6">
+        <div class="text-center pb-8">
+          <div class="most border-4 border-lime-600 p-4">
+            <app-image [interest]="most" [details]="most.score"></app-image>
+          </div>
+          <span class="text-xl"> Most popular in this {{ selectedDate }} </span>
+        </div>
+        <div class="text-center">
+          <div class="least border-4 border-red-700 p-4">
+            <app-image [interest]="least" [details]="least.score"></app-image>
+          </div>
+          <span class="text-xl"> Least popular in this {{ selectedDate }} </span>
+        </div>
+      </div>
+    </ng-container>
+
+    <div *ngIf="!most.path && !least.path" class="grid grid-flow-col md:gap-32 md:mb-10 md:p-2">
+      <p-skeleton height="40vh" width="25vw"></p-skeleton>
+      <p-skeleton height="40vh" width="25vw"></p-skeleton>
+    </div>
+
+  </ng-container>
+
+  <ng-template #all>
+
+      <div class="w-screen md:w-[50rem] md:h-[47rem] p-4 pb-12">
+        <p-table [value]="interests" responsiveLayout="scroll" styleClass="pb-10">
+          <ng-template pTemplate="caption">
+            <div class="flex">
+                <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+            </div>
+          </ng-template>
+
+          <ng-template pTemplate="header">
+              <tr>
+                  <th> Image </th>
+                  <th pSortableColumn="name"> Name <p-sortIcon></p-sortIcon> </th>
+                  <th pSortableColumn="score"> Score <p-sortIcon></p-sortIcon> </th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-interest>
+              <tr>
+                  <td>  <app-image [interest]="interest" [card]="false"></app-image>  </td>
+                  <td>{{ interest.name }}</td>
+                  <td>{{ interest.score }}</td>
+              </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <p-scrollTop [threshold]="100"></p-scrollTop>
+
+  </ng-template>
