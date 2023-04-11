@@ -39,6 +39,7 @@ $ cd interests && npm run start
 $ cd interests && npm run start --watch
 
 ```
+* API running on port 3000 - Frontend running on port 4200 by default
 
 ## Test
 

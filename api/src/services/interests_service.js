@@ -8,7 +8,7 @@ const descriptions = {
     'football': 'Football is played with 2 teams',
     'rally': 'Rally is a cool motorsport',
     'spa': 'A nice tech for frontend',
-    'hbo': 'Good shows is here!',
+    'hbo': 'Good shows are here!',
     'kumpir': 'Delicious Turkish meal',
     'eevee': 'A cute pokemon',
     'angora_cat': 'White cat breed from Ankara',
@@ -36,18 +36,23 @@ export async function getInterests() {
 }
 
 export async function getPopularityReport(dateType) {
-    const interests = await getInterests();
-    const scores = await getScoresByDate(dateType);
-    const scoreMap = {};
+    try {
+        const interests = await getInterests();
+        const scores = await getScoresByDate(dateType);
+        const scoreMap = {};
+        
+        scores.forEach(score => {
+            if(!scoreMap[score.interestId]) scoreMap[score.interestId] = 1;
+            else scoreMap[score.interestId] += 1; 
+        });
     
-    scores.forEach(score => {
-        if(!scoreMap[score.interestId]) scoreMap[score.interestId] = 1;
-        else scoreMap[score.interestId] += 1; 
-    });
-
-    return interests.map(interest => {
-        return { ...interest, score: scoreMap[interest.id] ?? 0 };
-    });
+        return interests.map(interest => {
+            return { ...interest, score: scoreMap[interest.id] ?? 0 };
+        });
+    }
+    catch(err) {
+        throw new Error(err);
+    }
 }
 
 

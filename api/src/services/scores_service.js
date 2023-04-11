@@ -12,28 +12,42 @@ export function addScore(interestId) {
 }
 
 async function getScores() {
-    const data = await fs.readFileSync(dbPath);
-    const resultData = [];
-    if(!data) throw new Error(err);
-
-    data.toString().split('\n').filter(dt => dt && dt !== '').forEach(dt => resultData.push(JSON.parse(dt)));
-    return resultData;
+    try {
+        const data = await fs.readFileSync(dbPath);
+        const resultData = [];
+        if(!data) throw new Error(err);
+    
+        data.toString().split('\n').filter(dt => dt && dt !== '').forEach(dt => resultData.push(JSON.parse(dt)));
+        return resultData;
+    }
+    catch(err) { 
+        // throw new Error(err);
+    }
 }
 
 export async function getAllScores() {
-    const data = await getScores();
-    return data;
+    try {
+        const data = await getScores();
+        return data;
+    }
+    catch(e) {
+        throw new Error(err);
+    }
 }
 
 export async function getScoresByDate(dateType) {
-    const data = await getScores();
-    const date = new Date();
-
-    switch(dateType) {
-        case 'week': date.setDate(date.getDay() - 7); break;
-        case 'month': date.setMonth(date.getMonth() - 1); break;
-        case 'year': date.setFullYear(date.getFullYear() - 1); break;
+    try {
+        const data = await getScores();
+        const date = new Date();
+        switch(dateType) {
+            case 'week': date.setDate(date.getDay() - 7); break;
+            case 'month': date.setMonth(date.getMonth() - 1); break;
+            case 'year': date.setFullYear(date.getFullYear() - 1); break;
+        }
+    
+        return data.filter(dt => dt.epoch > date.getTime());
     }
-
-    return data.filter(dt => dt.epoch > date.getTime());
+    catch(err) {
+        throw new Error(err);
+    }
 }

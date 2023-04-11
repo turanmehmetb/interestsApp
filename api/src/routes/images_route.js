@@ -9,7 +9,6 @@ router.get('/:path', async function(req, res, next) {
         else res.status(404);
     }
     catch(err) {
-        console.log(err);
         res.status(404);
     }
 });

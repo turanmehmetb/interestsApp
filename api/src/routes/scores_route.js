@@ -8,7 +8,7 @@ router.get('/', async function(req, res, next) {
         res.status(200).send(data);
     }
     catch(err) {
-        console.log(err);
+        throw new Error(err);
     }
 });
 
@@ -21,7 +21,7 @@ router.post('/:id', async function(req, res, next) {
         else res.status(504);
     }
     catch(err) {
-        console.log(err);
+        throw new Error(err);
     }
 });
 
@@ -34,7 +34,7 @@ router.get('/getByDate/:dateType', async function(req, res, next) {
         else res.status(504);
     }
     catch(err) {
-        console.log(err);
+        throw new Error(err);
     }
 });
 

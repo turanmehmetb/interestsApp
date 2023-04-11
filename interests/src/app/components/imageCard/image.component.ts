@@ -23,7 +23,6 @@ export class ImageComponent implements OnChanges {
 
   ngOnChanges(): void {
     this.loading = true;
-
     this.path = this.imageService.getImage(this.interest!.path);
     this.loading = false;
 

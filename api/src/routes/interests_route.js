@@ -18,10 +18,10 @@ router.get('/:dateType', async function(req, res, next) {
             const data = await getPopularityReport(req.params.dateType);
             res.status(200).send(data);
         }
-        else res.status(504);
+        else res.status(400);
     }
     catch(err) {
-        console.log(err);
+        res.status(404).send();
     }
 });
 
